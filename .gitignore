@@ -42,3 +42,6 @@ tmtags
 
 ## JetBrains
 .idea
+
+## Builds
+builds/
