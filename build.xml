@@ -11,7 +11,6 @@
 		project.setProperty("majorBuildNumber", majorBuildNumber);
 		project.setProperty("uberBuildNumber", uberBuildNumber);
     ]]></script>
-	<property name="VERSION_STRING" value="${uberBuildNumber}.${majorBuildNumber}.${minorBuildNumber}"/>
     <property file="build.properties"/>
     <property name="dev.dir.absolute" location="${dev.dir}"/>
     <tstamp>
@@ -20,8 +19,7 @@
 	<tstamp>
         <format property="MONTH_STAMP" pattern="M" locale="en,US"/>
     </tstamp>
-	<property name="VERSION_NUM" value="${uberBuildNumber}.${majorBuildNumber}.${minorBuildNumber}"/>
-	<property name="VERSION_STRING" value="honorbound_${VERSION_NUM}"/>
+	<property name="VERSION_STRING" value="${APP_NAME}_${VERSION_NUM}"/>
  
     <target name="main" depends="ios, android, zipDsym" />
  
@@ -96,9 +94,6 @@
         </exec>
  
         <copy file="${dev.dir.absolute}/build/android" tofile="${android.build.deploy.folder}/${VERSION_STRING}.apk"/>
-        <exec executable="curl" dir="${android.build.deploy.folder}">
-            <arg line="--form file=@${VERSION_STRING}.apk '${BUILD_URL}/save_file.php?appname=${APP_NAME}'" />
-        </exec>
     </target>
  
  
