@@ -11,7 +11,7 @@ PlayerSettings:
   targetResolution: 0
   accelerometerFrequency: 60
   companyName: h2soft
-  productName: Jenkins
+  productName: jenkins
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   defaultScreenWidth: 1024
@@ -66,7 +66,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  iPhoneBundleIdentifier: h2soft.kr.toyrun
+  iPhoneBundleIdentifier: kr.h2soft.jenkins
   iPhoneBundleVersion: 1.0
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 6
@@ -140,16 +140,7 @@ PlayerSettings:
   ps3SaveGameSlots: 1
   ps3TrialMode: 0
   flashStrippingLevel: 2
-  scriptingDefineSymbols:
-    data:
-      first: 1
-      second: 
-    data:
-      first: 2
-      second: 
-    data:
-      first: 7
-      second: 
+  scriptingDefineSymbols: {}
   metroPackageName: Jenkins
   metroPackageLogo: 
   metroPackageVersion: 
