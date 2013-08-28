@@ -12,11 +12,11 @@
         project.setProperty("uberBuildNumber", uberBuildNumber);
     ]]></script>
     <property file="build.properties"/>
-    
+
     <property name="dev.dir.absolute" location="${dev.dir}"/>
     <property name="build.dir" value="${dev.dir}/build"/>
     <property name="build.dir.absolute" location="${build.dir}"/>
-    
+
     <tstamp>
         <format property="TODAY_STAMP" pattern="yyyy_MM_dd" locale="en,US"/>
     </tstamp>
@@ -24,24 +24,24 @@
         <format property="MONTH_STAMP" pattern="M" locale="en,US"/>
     </tstamp>
     <property name="VERSION_STRING" value="${APP_NAME}_${VERSION_NUM}"/>
-    
- 
-    <target name="main" depends="ios, android, zipDsym" />
- 
+
+
+    <target name="main" depends="ios, android" />
+
     <target name="android" depends="compile-android" />
- 
-    <target name="ios" depends="compile-ios" />
- 
+
+    <target name="ios" depends="compile-ios, zipDsym" />
+
     <target name="clean">
         <echo message="Cleaning Build Space"/>
         <delete dir="${build.dir}"/>
         <mkdir dir="${build.dir}"/>
     </target>
- 
+
     <target name="compile-ios" depends="clean">
- 
+
         <echo message="Compiling unity project for version ${VERSION_STRING}"/>
- 
+
         <echo message="${unity.bin} -projectPath ${dev.dir.absolute} -executeMethod PerformBuild.CommandLineBuild -batchmode -quit"/>
         <exec executable="${unity.bin}" failonerror="true">
             <arg line="-projectPath ${dev.dir.absolute}"/>
@@ -49,16 +49,16 @@
             <arg line="-batchmode"/>
             <arg line="-quit"/>
         </exec>
- 
+
         <replace file="${build.dir.absolute}/iPhone/Info.plist" preservelastmodified="true">
             <replacefilter token="999.999.999" value="${VERSION_NUM}" />
         </replace>
-        
+
         <exec executable="${security.bin}" failonerror="true">
             <arg value="unlock-keychain"/>
             <arg line="-p ${keychain.password}"/>
         </exec>
- 
+
         <echo message="Building ${build.dir.absolute}/iPhone/Unity-iPhone.xcodeproj/ Sym Root ${build.dir.absolute}/iPhone/"/>
         <exec executable="${xcode.bin}" failonerror="true">
             <arg line="-project ${build.dir.absolute}/iPhone/Unity-iPhone.xcodeproj/"/>
@@ -68,23 +68,23 @@
             <arg line='DEBUG_INFORMATION_FORMAT=dwarf-with-dsym'/>
             <arg line='DWARF_DSYM_FILE_SHOULD_ACCOMPANY_PRODUCT=YES'/>
             <arg line='DEBUGGING_SYMBOLS=YES'/>
- 
+
             <arg line="-configuration Release"/>
         </exec>
- 
+
         <exec executable="${xcrun.bin}" failonerror="true">
             <arg line="-sdk iphoneos"/>
             <arg line="PackageApplication"/>
             <arg line="-v ${build.dir.absolute}/iPhone/build/${APP_NAME}.app"/>
             <arg line="-o ${build.dir.absolute}/iPhone/build/${APP_NAME}.ipa"/>
         </exec>
- 
+
         <copy file="${dev.dir.absolute}/Build/iPhone/build/${APP_NAME}.ipa" tofile="${ios.build.deploy.folder}/${VERSION_STRING}.ipa"/>
     </target>
- 
+
     <target name="compile-android" depends="clean">
         <echo message="Compiling unity project for android version ${VERSION_STRING}"/>
- 
+
         <echo message="${unity.bin} -projectPath ${dev.dir.absolute} -executeMethod PerformBuild.CommandLineBuildAndroid -batchmode -quit"/>
         <exec executable="${unity.bin}" failonerror="true">
             <arg line="-projectPath ${dev.dir.absolute}"/>
@@ -92,10 +92,10 @@
             <arg line="-batchmode"/>
             <arg line="-quit"/>
         </exec>
- 
+
         <copy file="${dev.dir.absolute}/build/android" tofile="${android.build.deploy.folder}/${VERSION_STRING}.apk"/>
     </target>
- 
+
     <target name="zipDsym">
         <echo message="Zipping dSym"/>
         <exec executable="zip" dir="${build.dir.absolute}/iPhone/build" failonerror="true">
@@ -103,7 +103,7 @@
             <arg value="${VERSION_STRING}.app.dSYM.zip"/>
             <arg value="${APP_NAME}.app.dSYM"/>
         </exec>
-        
+
         <copy file="${dev.dir.absolute}/build/iPhone/build/${VERSION_STRING}.app.dSYM.zip" tofile="${ios.build.deploy.folder}/${VERSION_STRING}.app.dSYM.zip"/>
     </target>
 </project>
