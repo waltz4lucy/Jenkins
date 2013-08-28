@@ -108,7 +108,7 @@
             <arg value="${APP_NAME}.app.dSYM"/>
         </exec>
 
-        <copy file="${dev.dir.absolute}/build/iPhone/build/${VERSION_STRING}.app.dSYM.zip" tofile="${ios.build.deploy.folder}/${VERSION_STRING}.app.dSYM.zip"/>
+        <copy file="${dev.dir.absolute}/build/iPhone/build/${VERSION_STRING}.dSYM.zip" tofile="${ios.build.deploy.folder}/${VERSION_STRING}.app.dSYM.zip"/>
 
         <echo message="Cleaning Build Space"/>
         <delete dir="${build.dir}"/>
