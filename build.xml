@@ -94,24 +94,16 @@
         </exec>
 
         <copy file="${dev.dir.absolute}/build/android" tofile="${android.build.deploy.folder}/${VERSION_STRING}.apk"/>
-
-        <echo message="Cleaning Build Space"/>
-        <delete dir="${build.dir}"/>
-        <mkdir dir="${build.dir}"/>
     </target>
 
     <target name="zipDsym">
         <echo message="Zipping dSym"/>
         <exec executable="zip" dir="${build.dir.absolute}/iPhone/build" failonerror="true">
             <arg value="-r"/>
-            <arg value="${VERSION_STRING}.dSYM.zip"/>
+            <arg value="${VERSION_STRING}.app.dSYM.zip"/>
             <arg value="${APP_NAME}.app.dSYM"/>
         </exec>
 
-        <copy file="${dev.dir.absolute}/build/iPhone/build/${VERSION_STRING}.dSYM.zip" tofile="${ios.build.deploy.folder}/${VERSION_STRING}.dSYM.zip"/>
-
-        <echo message="Cleaning Build Space"/>
-        <delete dir="${build.dir}"/>
-        <mkdir dir="${build.dir}"/>
+        <copy file="${dev.dir.absolute}/build/iPhone/build/${VERSION_STRING}.app.dSYM.zip" tofile="${ios.build.deploy.folder}/${VERSION_STRING}.dSYM.zip"/>
     </target>
 </project>

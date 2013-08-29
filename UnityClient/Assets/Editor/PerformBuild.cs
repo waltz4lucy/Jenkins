@@ -62,15 +62,15 @@ class PerformBuild
         // if(scenes == null || scenes.Length==0 || path == null)
         //             Debug.Log("2-1");
         //     return;
-        //             
+        //
         //         Debug.Log("3");
-        // 
+        //
         // Debug.Log(string.Format("Path: \"{0}\"", path));
         // for(int i=0; i<scenes.Length; ++i)
         // {
         //     Debug.Log(string.Format("Scene[{0}]: \"{1}\"", i, scenes[i]));
         // }
-        // 
+        //
         Debug.Log("Starting Android Build!");
 		BuildPipeline.BuildPlayer(scenes, path, BuildTarget.Android, BuildOptions.None);
 	}
