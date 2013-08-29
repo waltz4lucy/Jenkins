@@ -79,7 +79,7 @@
             <arg line="-o ${build.dir.absolute}/iPhone/build/${APP_NAME}.ipa"/>
         </exec>
 
-        <copy file="${dev.dir.absolute}/Build/iPhone/build/${APP_NAME}.ipa" tofile="${ios.build.deploy.folder}/${VERSION_STRING}.ipa"/>
+        <move file="${dev.dir.absolute}/Build/iPhone/build/${APP_NAME}.ipa" tofile="${ios.build.deploy.folder}/${VERSION_STRING}.ipa"/>
     </target>
 
     <target name="compile-android" depends="clean">
@@ -93,7 +93,7 @@
             <arg line="-quit"/>
         </exec>
 
-        <copy file="${dev.dir.absolute}/build/android" tofile="${android.build.deploy.folder}/${VERSION_STRING}.apk"/>
+        <move file="${dev.dir.absolute}/build/android" tofile="${android.build.deploy.folder}/${VERSION_STRING}.apk"/>
     </target>
 
     <target name="zipDsym">
@@ -104,6 +104,6 @@
             <arg value="${APP_NAME}.app.dSYM"/>
         </exec>
 
-        <copy file="${dev.dir.absolute}/build/iPhone/build/${VERSION_STRING}.app.dSYM.zip" tofile="${ios.build.deploy.folder}/${VERSION_STRING}.dSYM.zip"/>
+        <move file="${dev.dir.absolute}/build/iPhone/build/${VERSION_STRING}.app.dSYM.zip" tofile="${ios.build.deploy.folder}/${VERSION_STRING}.dSYM.zip"/>
     </target>
 </project>
